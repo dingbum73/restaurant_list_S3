@@ -15,7 +15,7 @@ const resturantSchema = new Schema({
     required: true
   },
   location: String,
-  phone: Number,
+  phone: String,
   google_map: String,
   rating: {
     type: String,
@@ -27,4 +27,4 @@ const resturantSchema = new Schema({
   }
 })
 
-module.exports = mongoose.model('Resturant', resturantSchema)
+module.exports = mongoose.model('Restaurant', resturantSchema)

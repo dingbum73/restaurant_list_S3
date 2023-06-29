@@ -42,12 +42,12 @@ app.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// Create_render
-app.get('/resturant/new', (req, res) => {
+// CRUD_Create_render
+app.get('/resturants/new', (req, res) => {
   res.render('new')
 })
 
-// Create_to DB || Back to top set body-parser
+// CRUD_Create_to DB || Back to top set body-parser
 app.post('/resturants', (req, res) => {
   return Resturant.create({
     name: req.body.name,
@@ -64,7 +64,15 @@ app.post('/resturants', (req, res) => {
     .catch(error => console.log(error))
 })
 
-
+// CRUD_Read
+app.get('/restaurants/:id', (req, res) => {
+  // 要注意index中的<a>的_id是否正確
+  const id = req.params.id
+  return Resturant.findById(id)
+    .lean()
+    .then((resturants) => { res.render('detail', { resturants }) })
+    .catch(error => console.log(error))
+})
 
 app.listen(port, () => {
   console.log(`It's running on http://localhost:${port}`)

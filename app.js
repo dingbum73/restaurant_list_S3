@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const Resturant = require('./models/resturant')
+const bodyParser = require('body-parser')
 
 const port = 3000
 const app = express()
@@ -31,12 +32,36 @@ app.engine('hbs', exphbs.create({ defaultLayout: 'main', extname: 'hbs' }).engin
 app.set('view engine', 'hbs')
 app.set('views', './views')
 
+// 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.get('/', (req, res) => {
   Resturant.find() // 取出DB resturants的資料 
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
     .then(resturants => res.render('index', { resturants }))
     .catch(error => console.log(error))
+})
 
+// Create_render
+app.get('/resturant/new', (req, res) => {
+  res.render('new')
+})
+
+// Create_to DB || Back to top set body-parser
+app.post('/resturants', (req, res) => {
+  return Resturant.create({
+    name: req.body.name,
+    name_en: req.body.name_en,
+    category: req.body.category,
+    image: req.body.image,
+    location: req.body.location,
+    phone: req.body.phone,
+    google_map: req.body.google_map,
+    rating: req.body.rating,
+    description: req.body.description,
+  })
+    .then(() => res.redirect('/'))// 新增完成後導回首頁
+    .catch(error => console.log(error))
 })
 
 

@@ -3,23 +3,23 @@ const Schema = mongoose.Schema
 const resturantSchema = new Schema({
   name: {
     type: String,
-    required: true
+    // required: true
   },
   name_en: String,
   category: {
     type: String,
-    required: true
+    // required: true
   },
   image: {
     type: String,
-    required: true
+    // required: true
   },
   location: String,
   phone: String,
   google_map: String,
   rating: {
     type: String,
-    required: true
+    // required: true
   },
   description: String,
   done: {

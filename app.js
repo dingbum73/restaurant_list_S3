@@ -106,8 +106,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 // CRUD_Delete
 app.post('/restaurants/:id/delete', (req, res) => {
   const id = req.params.id
-  return Resturant.findById(id)
-    .then(resturant => resturant.remove())
+  return Resturant.deleteOne({ _id: id })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })

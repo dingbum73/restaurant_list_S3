@@ -74,6 +74,44 @@ app.get('/restaurants/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// CRUD_Update
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Resturant.findById(id)
+    .lean()
+    .then((resturant) => res.render('edit', { resturant }))
+    .catch((error) => console.log(error))
+})
+
+
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Resturant.findById(id)
+    .then((resturant) => {
+      resturant.name = req.body.name,
+        resturant.name_en = req.body.name_en,
+        resturant.category = req.body.category,
+        resturant.image = req.body.image,
+        resturant.location = req.body.location,
+        resturant.phone = req.body.phone,
+        resturant.google_map = req.body.google_map,
+        resturant.rating = req.body.rating,
+        resturant.description = req.body.description
+      return resturant.save()// 重新賦值並存入
+    })
+    .then((resturant) => { res.redirect(`/restaurants/${resturant.id}`) })
+    .catch(error => console.log(error))
+})
+
+// CRUD_Delete
+app.post('/restaurants/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Resturant.findById(id)
+    .then(resturant => resturant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 app.listen(port, () => {
   console.log(`It's running on http://localhost:${port}`)
 })

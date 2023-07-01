@@ -1,5 +1,5 @@
 <div class="mt-5 p-5">
-  <form action="/restaurants/{{resturant._id}}/edit" method="POST">
+  <form action="/restaurants/{{resturant._id}}?_method=PUT" method="POST">
     <div class="mb-3">
       <label for="exampleInputName" class="form-label">name</label>
       <input type="text" class="form-control" id="exampleInputName" name="name" value="{{resturant.name}}">

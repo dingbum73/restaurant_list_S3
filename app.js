@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const Resturant = require('./models/resturant')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const port = 3000
 const app = express()
@@ -34,6 +35,9 @@ app.set('views', './views')
 
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// 設定method-override參數
+app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
   Resturant.find() // 取出DB resturants的資料 
@@ -100,7 +104,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 })
 
 
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Resturant.findById(id)
     .then((resturant) => {
@@ -120,7 +124,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 // CRUD_Delete
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Resturant.deleteOne({ _id: id })
     .then(() => res.redirect('/'))

@@ -14,6 +14,10 @@
 ### 開始使用
 - 安裝node.js and npm
 - 複製專案到本機
+- Cmder 指令 npm run dev
+
+看到以下訊息，可至瀏覽器輸入下列網址開啟
+   `It's running on http://localhost:3000` 
 
 
 ## 開發工具

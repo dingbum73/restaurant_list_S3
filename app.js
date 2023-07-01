@@ -42,6 +42,22 @@ app.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
+app.get('/orderbyname', (req, res) => {
+  Resturant.find() // 取出DB resturants的資料 
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .sort({ name: 'asc' })
+    .then(resturants => res.render('index', { resturants }))
+    .catch(error => console.log(error))
+})
+
+app.get('/category', (req, res) => {
+  Resturant.find() // 取出DB resturants的資料 
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .sort({ category: 'asc' })
+    .then(resturants => res.render('index', { resturants }))
+    .catch(error => console.log(error))
+})
+
 // CRUD_Create_render
 app.get('/resturants/new', (req, res) => {
   res.render('new')
@@ -117,7 +133,7 @@ app.get('/search', (req, res) => {
   const regex = new RegExp(keyword, 'i') // 模糊搜尋
   Resturant.find({ $or: [{ name: { $regex: regex } }, { category: { $regex: regex } }] })
     .lean()
-    .then(resturants => res.render('index', { resturants }))
+    .then(resturants => res.render('index', { resturants, keyword }))
     .catch(error => console.log(error))
 })
 

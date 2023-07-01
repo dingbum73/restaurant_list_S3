@@ -111,6 +111,17 @@ app.post('/restaurants/:id/delete', (req, res) => {
     .catch(error => console.log(error))
 })
 
+
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  const regex = new RegExp(keyword, 'i') // 模糊搜尋
+  Resturant.find({ $or: [{ name: { $regex: regex } }, { category: { $regex: regex } }] })
+    .lean()
+    .then(resturants => res.render('index', { resturants }))
+    .catch(error => console.log(error))
+})
+
+
 app.listen(port, () => {
   console.log(`It's running on http://localhost:${port}`)
 })

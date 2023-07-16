@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 if (process.env.NODE_ENV !== 'production') {
@@ -33,6 +34,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // 設定method-override參數
 app.use(methodOverride('_method'))
+
+usePassport(app)
 
 // 設定路由
 app.use(routes)

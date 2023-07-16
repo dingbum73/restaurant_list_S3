@@ -1,31 +1,21 @@
-const mongoose = require('mongoose')
-const Resturant = require('../resturant')
-const ResturantList = require('../restaurantList.json')
+const db = require('../../config/mongoose')
+const Restaurant = require('../restaurant')
+const RestaurantList = require('../restaurantList.json')
 
-if(process.env.NODE_ENV !=='production'){
-  require('dotenv').config()
-}
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
-const db = mongoose.connection
-
-db.on('error',()=>{
-  console.log('DB error')
-})
-
-db.once('open',()=>{
-  console.log('DB connected')
-  for (let i = 0; i < ResturantList.results.length; i++) {
-    Resturant.create({name:ResturantList.results[i].name,
-      name_en: ResturantList.results[i].name_en,
-      category: ResturantList.results[i].category,
-      image: ResturantList.results[i].image,
-      location: ResturantList.results[i].location,
-      phone: ResturantList.results[i].phone,
-      google_map: ResturantList.results[i].google_map,
-      rating: ResturantList.results[i].rating,
-      description: ResturantList.results[i].description,})
+db.once('open', () => {
+  for (let i = 0; i < RestaurantList.results.length; i++) {
+    Restaurant.create({
+      name: RestaurantList.results[i].name,
+      name_en: RestaurantList.results[i].name_en,
+      category: RestaurantList.results[i].category,
+      image: RestaurantList.results[i].image,
+      location: RestaurantList.results[i].location,
+      phone: RestaurantList.results[i].phone,
+      google_map: RestaurantList.results[i].google_map,
+      rating: RestaurantList.results[i].rating,
+      description: RestaurantList.results[i].description,
+    })
   }
   console.log('done')
 })

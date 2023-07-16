@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Resturant = require('../../models/resturant')
+const Restaurant = require('../../models/restaurant')
 
 
 // CRUD_Create_render
@@ -10,7 +10,7 @@ router.get('/new', (req, res) => {
 
 // CRUD_Create_to DB || Back to top set body-parser
 router.post('', (req, res) => {
-  return Resturant.create({
+  return Restaurant.create({
     name: req.body.name,
     name_en: req.body.name_en,
     category: req.body.category,
@@ -29,7 +29,7 @@ router.post('', (req, res) => {
 router.get('/:id', (req, res) => {
   // 要注意index中的<a>的_id是否正確
   const id = req.params.id
-  return Resturant.findById(id)
+  return Restaurant.findById(id)
     .lean()
     .then((restaurants) => { res.render('detail', { restaurants }) })
     .catch(error => console.log(error))
@@ -38,7 +38,7 @@ router.get('/:id', (req, res) => {
 // CRUD_Update
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
-  return Resturant.findById(id)
+  return Restaurant.findById(id)
     .lean()
     .then((resturant) => res.render('edit', { resturant }))
     .catch((error) => console.log(error))
@@ -47,7 +47,7 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  return Resturant.findById(id)
+  return Restaurant.findById(id)
     .then((resturant) => {
       resturant.name = req.body.name,
         resturant.name_en = req.body.name_en,
@@ -67,7 +67,7 @@ router.put('/:id', (req, res) => {
 // CRUD_Delete
 router.delete('/:id', (req, res) => {
   const id = req.params.id
-  return Resturant.deleteOne({ _id: id })
+  return Restaurant.deleteOne({ _id: id })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })

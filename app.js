@@ -6,7 +6,6 @@ const methodOverride = require('method-override')
 const routes = require('./routes')
 const usePassport = require('./config/passport')
 require('./config/mongoose')
-
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }

@@ -10,7 +10,9 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/users/login'
+  failureRedirect: '/users/login',
+  failureMessage: true,
+  failureFlash: true
 }))
 
 router.get('/register', (req, res) => {
@@ -57,11 +59,11 @@ router.post('/register', (req, res) => {
       }
       return bcrypt
         .genSalt(10)
-        .then(salt => bcrypt.hash(password,salt))
+        .then(salt => bcrypt.hash(password, salt))
         .then(hash => User.create({
           name,
           email,
-          password:hash
+          password: hash
         }))
         .then(() => res.redirect('/'))
         .catch(err => console.log(err))

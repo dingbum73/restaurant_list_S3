@@ -25,6 +25,7 @@ const seedUsers = [SEED_USER_ONE, SEED_USER_TWO]
 
 
 db.once('open', () => {
+  // 使用map => seedUsers
   const seedUsersRun = seedUsers.map(seedUser => {
     return bcrypt
       .genSalt(10)

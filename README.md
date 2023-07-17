@@ -1,12 +1,14 @@
-
-
 # 餐廳清單加入登入系統
-第一份CRUD的功能實作專案
-![image](https://github.com/dingbum73/mypractice/assets/124600894/c055ecd3-d742-4e5e-9797-404c76f1a1d9)
+![image](https://github.com/dingbum73/restaurant_list_S3/assets/124600894/f157dc66-e820-4e3a-b683-9af109b3bde8)
+
+![image](https://github.com/dingbum73/restaurant_list_S3/assets/124600894/b9118265-757e-42c2-8ba5-5f46080bb18a)
+
+
 
 
 ## 介紹
-可以自行輸入，記錄餐廳
+- 登入後可使用功能，
+- 可以自行輸入，記錄餐廳
 
 ### 功能
 - 登入登出功能
